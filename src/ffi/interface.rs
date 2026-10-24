@@ -42,6 +42,10 @@ pub type brotli_alloc_func = Option<extern "C" fn(data: *mut c_void, size: usize
 
 pub type brotli_free_func = Option<extern "C" fn(data: *mut c_void, ptr: *mut c_void) -> ()>;
 
+pub type brotli_decoder_metadata_start_func = Option<extern "C" fn(opaque: *mut c_void, size: usize) -> ()>;
+
+pub type brotli_decoder_metadata_chunk_func = Option<extern "C" fn(opaque: *mut c_void, data: *const u8, size: usize) -> ()>;
+
 
 #[repr(C)]
 #[derive(Clone)]

@@ -9,7 +9,7 @@ pub mod interface;
 pub mod alloc_util;
 use self::alloc_util::SubclassableAllocator;
 use alloc::{Allocator, SliceWrapper, SliceWrapperMut, StackAllocator, AllocatedStackMemory, bzero};
-use self::interface::{CAllocator, c_void, BrotliDecoderParameter, BrotliDecoderResult, brotli_alloc_func, brotli_free_func};
+use self::interface::{CAllocator, c_void, BrotliDecoderParameter, BrotliDecoderResult, brotli_alloc_func, brotli_free_func, brotli_decoder_metadata_start_func, brotli_decoder_metadata_chunk_func};
 use ::BrotliResult;
 use ::BrotliDecoderReturnInfo;
 use ::brotli_decode;
@@ -662,6 +662,15 @@ pub extern fn BrotliDecoderErrorString(c: BrotliDecoderErrorCode) -> *const u8 {
 #[no_mangle]
 pub extern fn BrotliDecoderVersion() -> u32 {
   0x1000f00
+}
+
+#[no_mangle]
+pub extern fn BrotliDecoderSetMetadataCallbacks(
+    state_pts: *const BrotliDecoderState,
+    start_func: brotli_decoder_metadata_start_func,
+    chunk_func: brotli_decoder_metadata_chunk_func,
+    opaque: *mut c_void) {
+    // Stubbed out
 }
 
 #[cfg(test)]
